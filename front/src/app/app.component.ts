@@ -19,16 +19,19 @@ export class AppComponent implements OnInit,OnChanges  {
   total : any  = 0
 
   //person
-  full_name : any = "Recepient";
-  email : any = "Email@address.com";
-  address_line_1 : any = "Street Address" 
-  address_line_2: any = "Suburb"
-  province : any = "Province"
-  tel : any = "Telephone"
+  full_name : any = "";
+  email : any = "";
+  address_line_1 : any = "" 
+  address_line_2: any = ""
+  province : any = ""
+  tel : any = ""
 
   itemsCount = 1;
   items : any[] = [{quantity:0,price:0,item_name:'',item_desc:''}]
-
+  randy = 0;
+  constructor(){
+    this.randy = Math.floor(Math.random() * (9999 - 100 + 1)) + 100;
+  }
 
   ngOnInit(): void {
     setInterval(() => {
@@ -65,12 +68,11 @@ export class AppComponent implements OnInit,OnChanges  {
     setTimeout(() => {
       if(element != null) {
         html2canvas(element).then((canvas) => {
-          const pdf = new jsPDF('p', 'mm', '');
+          const pdf = new jsPDF({unit:'px',orientation:'p',format:[document.body.clientWidth,document.body.clientHeight]});
           const imageData = canvas.toDataURL('image/png');
           const imgProps = pdf.getImageProperties(imageData);
           const width = pdf.internal.pageSize.getWidth();
           const height = (imgProps.height * width) / imgProps.width;
-    
           pdf.addImage(imageData, 'PNG', 0, 0, width, height);
           pdf.save('invoice '+this.full_name+'.pdf');
         });
