@@ -78,7 +78,7 @@
         <div class="form-control">
           <label for="item-description">Description</label>
           <textarea name="item-description" id="desc" placeholder="Type item description"
-            class="textarea bg-white bg-opacity-5 w-full rounded-md" rows="5" [(ngModel)]="item.item_desc"></textarea>
+            class="textarea bg-white bg-opacity-5 w-full rounded-md h-20 lg:h-5" [(ngModel)]="item.item_desc"></textarea>
         </div>
 
         <div class="flex gap-2">
@@ -141,7 +141,7 @@
       <div class="item-details" *ngFor="let item of items; let i = index">
         <div class="flex justify-between">
           <div class="left">
-            <p class="mb-0">{{items[i].item_name}}</p>
+            <p class="mb-0">{{items[i].item_name}} x{{item.quantity}}</p>
             <p class="text-xs font-light -mt-0 ml-2">- {{item.item_desc}}</p>
           </div>
           <span>R{{item.price|number : "1.2-2"}}</span>
