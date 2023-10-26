@@ -1,1 +1,184 @@
-<p>preview works!</p>
+<div class="preview bg-base-100 pb-48 " id="preview">
+    <div class="flex h-40">
+      <div class="imgage-holder h-full"><img src="../assets/GTT Logo.png" class="h-full object-cover" alt="GTT logo" srcset=""></div>
+      <div class="info-holder text-info flex justify-center flex-col">
+        <p>{{full_name}}</p>
+        <p class="text-xs">{{email}}</p>
+        <p class="text-xs">{{address_line_1}}</p>
+        <p class="text-xs">{{address_line_2}}</p>
+        <p class="text-xs">{{province}}</p>
+        <p class="text-xs">{{tel}}</p>
+  
+        <label class="text-xs text-primary font-semibold" for="my-modal-4">Edit billing details</label>
+        <!-- Put this part before </body> tag -->
+        <input type="checkbox" id="my-modal-4" class="modal-toggle" />
+        <label for="my-modal-4" class="modal modal-bottom sm:modal-middle cursor-pointer">
+          <label class="modal-box relative" for="">
+            <h3 class="text-lg font-bold">Editing billing address</h3>
+            <p class="py-4">Please type in the information of the reciepient</p>
+  
+            <form action="" class="form">
+              <div class="form-control">
+                <label for="full_name">Full name</label>
+                <input type="text" class="input bg-white bg-opacity-5 rounded-md" name="full_name" [(ngModel)]="full_name"
+                  placeholder="Tshego Mohajane">
+              </div>
+              <div class="form-control">
+                <label for="email">Email address</label>
+                <input type="email" class="input bg-white bg-opacity-5 rounded-md" name="email" [(ngModel)]="email"
+                  placeholder="tp@goumertTreatz.co.za">
+              </div>
+  
+              <div class="grid grid-cols-2 ">
+                <div class="form-control">
+                  <label for="address_line_1">Address line 1</label>
+                  <input type="text" class="input bg-white bg-opacity-5 rounded-md" name="address_line_1"
+                    [(ngModel)]="address_line_1" placeholder="Street">
+                </div>
+                <div class="form-control">
+                  <label for="address_line_2">Address line 2</label>
+                  <input type="text" class="input bg-white bg-opacity-5 rounded-md" name="province"
+                    [(ngModel)]="address_line_2" placeholder="Surbub">
+                </div>
+                <div class="form-control">
+                  <label for="province">Province</label>
+                  <input type="text" class="input bg-white bg-opacity-5 rounded-md" name="province" [(ngModel)]="province"
+                    placeholder="Province">
+                </div>
+                <div class="form-control">
+                  <label for="tel">Telephone</label>
+                  <input type="text" class="input bg-white bg-opacity-5 rounded-md" name="tel" [(ngModel)]="tel"
+                    placeholder="Telephone">
+                </div>
+  
+              </div>
+  
+  
+            </form>
+  
+  
+          </label>
+        </label>
+      </div>
+    </div>
+  
+    <div class="flex justify-center">
+      <h3 class="font-medium">Generate Invoice</h3>
+    </div>
+  
+    <div class="flex justify-center">
+      <form class="w-full flex flex-col gap-2">
+        <div *ngFor="let item of items; let i = index" class="inputs-inv px-4 grid grid-cols-1 lg:grid-cols-3">
+          <div class="form-control">
+            <label for="item-name">Item Name</label>
+            <input type="text" name="item-name" class="input bg-white bg-opacity-5 rounded-md" placeholder="Type item name"
+              [(ngModel)]="item.item_name">
+          </div>
+  
+          <div class="form-control">
+            <label for="item-description">Description</label>
+            <textarea name="item-description" id="desc" placeholder="Type item description"
+              class="textarea bg-white bg-opacity-5 w-full rounded-md h-20 lg:h-5" [(ngModel)]="item.item_desc"></textarea>
+          </div>
+  
+          <div class="flex gap-2">
+            <div class="form-control w-1/2">
+              <label for="item-description">Item Price</label>
+              <div class="flex w-full place-items-center gap-3"><span class="font-semibold text-lg">R</span><input
+                  type="number" class="input bg-white bg-opacity-5 rounded-md w-full" name="price"
+                  [(ngModel)]="item.price" placeholder="0.00">
+              </div>
+            </div>
+            <div class="form-control w-1/2">
+              <label for="item-description">Quantity</label>
+              <div class="flex w-full place-items-center gap-3"><button
+                  class="btn btn-primary btn-sm font-semibold text-lg" (click)="decrease(i)">-</button><input type="text"
+                  class="input bg-white text-center bg-opacity-5 rounded-md w-full" name="quantity"
+                  [(ngModel)]="item.quantity" placeholder="0"><button class="btn btn-primary btn-sm font-semibold text-lg"
+                  (click)="increase(i)">+</button>
+              </div>
+            </div>
+          </div>
+  
+          <div class="flex px-4 py-2 justify-between">
+            <span></span>
+            <button (click)="removeItem(i)" class="btn btn-outline btn-sm capitalize"> Remove</button>
+          </div>
+        </div>
+  
+        <div class="flex px-4 py-2 justify-between">
+          <button (click)="addItem()" class="btn btn-ghost btn-sm capitalize gap-2"><span>+</span> Add New Item</button>
+        </div>
+      </form>
+  
+  
+    </div>
+  </div>
+  
+  <div class="final bg-base-100 h-full hidden" id="final">
+  
+    <div class="flex h-40 place-items-center">
+      <div class="imgage-holder h-full"><img src="../assets/GTT Logo.png" class="h-full" alt="GTT logo" srcset=""></div>
+      <div class="info-holder text-white flex justify-center flex-col">
+        <p>{{full_name}}</p>
+        <p class="text-xs">{{email}}</p>
+        <p class="text-xs">{{address_line_1}}</p>
+        <p class="text-xs">{{address_line_2}}</p>
+        <p class="text-xs">{{tel}}</p>
+      </div>
+    </div>
+    <div class="px-4 text-white">
+      <div class="flex justify-between">
+        <p for="items" class="pb-3">Items List</p>
+        <p for="items" class="pb-3 text-sm">Invoice No: GTT-{{randy}}</p>
+  
+      </div>
+      <div class="items-display bg-gray-50 bg-opacity-5 p-5 rounded-lg w-full flex flex-col gap-4">
+        <div class="item-details" *ngFor="let item of items; let i = index">
+          <div class="flex justify-between">
+            <div class="left">
+              <p class="mb-0">{{items[i].item_name}} x{{item.quantity}}</p>
+              <p class="text-xs font-light -mt-0 ml-2">- {{item.item_desc}}</p>
+            </div>
+            <span>R{{item.price|number : "1.2-2"}}</span>
+          </div>
+  
+        </div>
+      </div>
+  
+  
+  
+      <div class="flex justify-between py-5">
+        <span></span>
+        <div>
+          <p class="opacity-50">Total Amount Due</p>
+          <p class="text-right">R{{total|number : "1.2-2"}}</p>
+        </div>
+  
+      </div>
+  
+      <div class="text-xs pb-5">
+        <p class="opacity-50">Payment Details</p>
+        <p><span class= "opacity-50">Bank :</span> Capitec</p>
+        <p><span class= "opacity-50">Acc Holder: </span>TP Mohajane</p>
+        <p><span class= "opacity-50">Acc No:</span> 1735575672</p>
+        <p><span class= "opacity-50">Branch Code:</span> 470010</p>
+        <p><span class= "opacity-50">Reference:</span> Your name + Invoice No</p>
+      </div>
+  
+      <div class="rounded-lg bg-white bg-opacity-5 p-2 mb-4">
+        <p class="pb-1 disclaimer-header">Disclaimer</p>
+        <p class="disclaimer">This invoice is valid for 7 days.</p>
+        <p class="disclaimer">Your order will be processed upon payment</p>
+      </div>
+      <p class="text-center">Thank you!</p>
+    </div>
+  
+  
+  </div>
+  
+  <div class="flex flex-col place-items-center justify-center gap-1 fixed bottom-10 w-full">
+    <p>Total: <span class="font-semibold">R{{total|number : "1.2-2"}}</span></p>
+    <button [disabled]="total<=0" class="btn btn-primary shadow w-1/2" (click)="generatePDF()">Generate Invoice
+    </button>
+  </div>
