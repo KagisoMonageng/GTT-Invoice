@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { InvoiceService } from '../services/invoice.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  invoices : any[] = [];
+
+  constructor( private invoiceService: InvoiceService) { }
 
   ngOnInit(): void {
+    this.invoiceService.getAllInv().subscribe((results :any[])=>{
+      this.invoices = results;
+    },(err:HttpErrorResponse) =>{
+      console.log(err)
+    })
   }
 
 }
