@@ -33,7 +33,7 @@ export class PreviewComponent implements OnInit {
 
 
   uploadPreset = "i8maua2c"
-  cloudinaryUrl = 'http://api.cloudinary.com/v1_1/dev-lab/image/upload'
+  cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dev-lab/image/upload'
   fileUrl = ''
 
   constructor(private invServ: InvoiceService, private router: Router, private http: HttpClient) {
