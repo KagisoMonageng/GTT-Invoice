@@ -9,6 +9,10 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'home',pathMatch: 'full',
+    component: HomeComponent
+  },
+  {
     path: 'add-new',
     component: PreviewComponent
   }

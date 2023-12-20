@@ -26,12 +26,11 @@ exports.getInvoice = (req,res) =>{
 }
 
 exports.addInv = (req,res) =>{
+    console.log("first")
 
-    const{ cl_name,cl_surname,cl_email,item,description,quantity,total,inv_no} = req.body;
-    const date =  new Date()
-
-    const sql = "INSERT INTO invoice (cl_name,cl_surname,cl_email,item,description,quantity,total,date,inv_no) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)";
-    pool.query(sql,[cl_name,cl_surname,cl_email,item,description,quantity,total,date,inv_no],(err,result) =>{
+    const{ name,fileUrl,total,quantity} = req.body;
+    const sql = "INSERT INTO invoice (cl_name,inv_url,total,quantity) VALUES ($1,$2,$3,$4)";
+    pool.query(sql,[name,fileUrl,total,quantity],(err,result) =>{
         if(err){
             console.log(err)
             res.status(400).json({message:"Failed to store invoice"});

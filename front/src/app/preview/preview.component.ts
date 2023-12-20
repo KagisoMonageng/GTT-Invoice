@@ -3,7 +3,8 @@ import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { InvoiceService } from '../services/invoice.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -29,16 +30,14 @@ export class PreviewComponent implements OnInit {
   itemsCount = 1;
   items: any[] = [{ quantity: 0, price: 0, item_name: '', item_desc: '' }]
   randy = 0;
-  constructor(private invServ: InvoiceService) {
+
+
+  uploadPreset = "i8maua2c"
+  cloudinaryUrl = 'http://api.cloudinary.com/v1_1/dev-lab/image/upload'
+  fileUrl = ''
+
+  constructor(private invServ: InvoiceService, private router: Router, private http: HttpClient) {
     this.randy = Math.floor(Math.random() * (9999 - 100 + 1)) + 100;
-
-    invServ.getAllInv().subscribe((res: any) => {
-
-      console.log(res)
-
-    }, (err: HttpErrorResponse) => {
-      console.log(err)
-    })
   }
 
   ngOnInit(): void {
@@ -81,6 +80,39 @@ export class PreviewComponent implements OnInit {
           const height = (imgProps.height * width) / imgProps.width;
           pdf.addImage(imageData, 'PNG', 0, 0, width, height);
           pdf.save('invoice ' + this.full_name + '.pdf');
+
+
+          let file = pdf.output('blob');
+
+          const formData = new FormData();
+          formData.append("file", file)
+          formData.append("upload_preset", this.uploadPreset);
+          this.http.post(this.cloudinaryUrl, formData).subscribe((res: any) => {
+
+            // Uploded
+            this.fileUrl = res.url;
+
+            const data = {
+              name: this.full_name,
+              fileUrl: this.fileUrl,
+              total:this.total,
+              quantity:this.quantity
+            }
+            this.invServ.addInv(data).subscribe((add: any) => {
+              this.router.navigateByUrl('/home')
+            }, (errAdd: HttpErrorResponse) => {
+              console.log(errAdd)
+            })
+
+
+          }, (err: HttpErrorResponse) => {
+            console.log(err)
+            console.log("failed to upload pdf")
+          })
+
+
+
+
         });
       }
 
@@ -100,6 +132,11 @@ export class PreviewComponent implements OnInit {
       this.items[i].quantity = 0;
     }
   }
+
+
+
+
+
 
 
 }

@@ -19,7 +19,7 @@ export class InvoiceService {
   }
   
   addInv(invoice:any){
-    return this.http.post(this.baseUrl + '/invoice', invoice)
+    return this.http.post(this.baseUrl, invoice)
   }
 
 }
