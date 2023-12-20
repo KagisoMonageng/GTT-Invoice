@@ -1,7 +1,12 @@
 const { Pool } = require('pg')
 
 const pool = new Pool({
-  connectionString: "postgres://default:ce8pYLvS9HRU@ep-morning-unit-351736-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb?sslmode=require",
+  // user: 'admin',
+  // host: 'localhost',
+  // database: 'gtt-inv',
+  // password: 'MusicIsLife@44',
+  // port: 5433, // PostgreSQL default port is 5432
+  connectionString: 'postgres://hnvdqvxk:eyYnyfkTnj_6urSCn_i0iZ3knHJTbVVI@lallah.db.elephantsql.com/hnvdqvxk'
 })
 pool.connect(function(err){
     if (err) {
