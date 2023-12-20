@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class InvoiceService {
 
-  baseUrl: string = 'http://localhost:8080/invoice';
+  // baseUrl: string = 'http://localhost:8080/invoice';
+  baseUrl: string = 'https://gtt-invoice-back.vercel.app/invoice';
 
   constructor(private http: HttpClient) { }
 
