@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./preview.component.scss']
 })
 export class PreviewComponent implements OnInit {
-  quantity: any = 12
+  quantity: any = 0;
   price: any = 100
   item_name: any = "Lemon Cream"
   item_desc: any = "Creamy lemon filled scones"
@@ -32,8 +32,8 @@ export class PreviewComponent implements OnInit {
   randy = 0;
 
 
-  uploadPreset = "i8maua2c"
-  cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dev-lab/image/upload'
+  uploadPreset = "eqnoanqs"
+  cloudinaryUrl = 'https://api.cloudinary.com/v1_1/next-gen-files/image/upload'
   fileUrl = ''
 
   constructor(private invServ: InvoiceService, private router: Router, private http: HttpClient) {
@@ -57,10 +57,12 @@ export class PreviewComponent implements OnInit {
 
   addItem(): void {
     this.items.push({ quantity: 0, price: 0, item_name: '', item_desc: '' })
+    
   }
 
   removeItem(i: any): void {
     this.items.splice(i, 1);
+    
   }
 
   generatePDF() {
@@ -91,6 +93,10 @@ export class PreviewComponent implements OnInit {
 
             // Uploded
             this.fileUrl = res.url;
+
+            this.items.forEach(item => {
+              this.quantity =+ item.quantity;
+            });
 
             const data = {
               name: this.full_name,

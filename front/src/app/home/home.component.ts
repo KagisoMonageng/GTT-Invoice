@@ -17,9 +17,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.invServ.getAllInv().subscribe((results:any[])=>{
-
-      this.invoices = results
-
+      this.invoices = results;
+      console.log(results)
     },(err: HttpErrorResponse)=>{
       this.message = err.error.message
     })

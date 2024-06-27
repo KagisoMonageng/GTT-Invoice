@@ -4,6 +4,7 @@ exports.getAllInv = (req,res) =>{
     const sql = "SELECT * FROM invoice";
     pool.query(sql,(err,result) =>{
         if(err || result.rowCount == 0){
+            console.log(err)
             res.status(400).json({message:"No invoices found"});
         }
         else{
