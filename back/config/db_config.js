@@ -1,12 +1,7 @@
 const { Pool } = require('pg')
-
+require("dotenv").config();
 const pool = new Pool({
-  // user: 'admin',
-  // host: 'localhost',
-  // database: 'gtt-inv',
-  // password: 'MusicIsLife@44',
-  // port: 5433, // PostgreSQL default port is 5432
-  connectionString: 'postgres://hnvdqvxk:eyYnyfkTnj_6urSCn_i0iZ3knHJTbVVI@lallah.db.elephantsql.com/hnvdqvxk'
+  connectionString: process.env.CONN
 })
 pool.connect(function(err){
     if (err) {
